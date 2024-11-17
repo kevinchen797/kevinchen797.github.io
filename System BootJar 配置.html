@@ -20,28 +20,45 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":"default","style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Kevin&#96;Blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="System BootJar 配置1. 背景日常系统侧开发过程中，经常会需要面向多个 app 提供定制的 API ，通常的做法是基于AIDL封装一个SDK（jar）提供给有需要应用开发同事，应用侧将该 SDK 打包到 APK 中；这样有个弊端就是当 SDK 内部实现有变动的时候需要所有集成SDK的应用都重新集成打包，为了解决这个问题我们参考下 Android 原生是如何处理的，比如 CarServ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android System BootJar 配置">
+<meta property="og:url" content="http://example.com/System%20BootJar%20%E9%85%8D%E7%BD%AE.html">
 <meta property="og:site_name" content="Kevin&#96;Blog">
+<meta property="og:description" content="System BootJar 配置1. 背景日常系统侧开发过程中，经常会需要面向多个 app 提供定制的 API ，通常的做法是基于AIDL封装一个SDK（jar）提供给有需要应用开发同事，应用侧将该 SDK 打包到 APK 中；这样有个弊端就是当 SDK 内部实现有变动的时候需要所有集成SDK的应用都重新集成打包，为了解决这个问题我们参考下 Android 原生是如何处理的，比如 CarServ">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/image%5C1.png">
+<meta property="og:image" content="http://example.com/image%5C2.png">
+<meta property="og:image" content="http://example.com/image%5C3.png">
+<meta property="og:image" content="http://example.com/image%5C4.png">
+<meta property="og:image" content="http://example.com/image%5C5.png">
+<meta property="og:image" content="http://example.com/image%5C6.png">
+<meta property="og:image" content="http://example.com/image%5C7.png">
+<meta property="og:image" content="http://example.com/image%5C8.png">
+<meta property="og:image" content="http://example.com/image%5C9.png">
+<meta property="og:image" content="http://example.com/image%5C10.png">
+<meta property="og:image" content="http://example.com/image%5C11.png">
+<meta property="og:image" content="http://example.com/image%5C12.png">
+<meta property="article:published_time" content="2024-11-17T08:13:20.511Z">
+<meta property="article:modified_time" content="2024-11-17T11:31:12.168Z">
 <meta property="article:author" content="Kevin">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/image%5C1.png">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/System%20BootJar%20%E9%85%8D%E7%BD%AE.html">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'en'
   };
 </script>
 
-  <title>Kevin`Blog</title>
+  <title>Android System BootJar 配置 | Kevin`Blog</title>
   
 
 
@@ -139,9 +156,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
@@ -157,10 +175,9 @@
       <meta itemprop="name" content="Kevin`Blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/System%20BootJar%20%E9%85%8D%E7%BD%AE.html" class="post-title-link" itemprop="url">Android System BootJar 配置</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Android System BootJar 配置
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -207,7 +224,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="System-BootJar-配置"><a href="#System-BootJar-配置" class="headerlink" title="System BootJar 配置"></a>System BootJar 配置</h1><h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h2><p>日常系统侧开发过程中，经常会需要面向多个 app 提供定制的 API ，通常的做法是基于AIDL封装一个SDK（jar）提供给有需要应用开发同事，应用侧将该 SDK 打包到 APK 中；这样有个弊端就是当 SDK 内部实现有变动的时候需要所有集成SDK的应用都重新集成打包，为了解决这个问题我们参考下 Android 原生是如何处理的，比如 CarService 对外提供的 API 都封装在 car-lib 中，编译产物是 android.car.jar，应用开发使用 CarService api 时就不需要将 jar 包打包到 apk 中，只需要使用 compileOnly 在编译阶段参与就可以了。下面介绍如何制作一个公共接口 jar，并在系统启动阶段自动加载。</p>
+        <h1 id="System-BootJar-配置"><a href="#System-BootJar-配置" class="headerlink" title="System BootJar 配置"></a>System BootJar 配置</h1><h2 id="1-背景"><a href="#1-背景" class="headerlink" title="1. 背景"></a>1. 背景</h2><p>日常系统侧开发过程中，经常会需要面向多个 app 提供定制的 API ，通常的做法是基于AIDL封装一个SDK（jar）提供给有需要应用开发同事，应用侧将该 SDK 打包到 APK 中；这样有个弊端就是当 SDK 内部实现有变动的时候需要所有集成SDK的应用都重新集成打包，为了解决这个问题我们参考下 Android 原生是如何处理的，比如 CarService 对外提供的 API 都封装在 car-lib 中，编译产物是 android.car.jar，应用开发使用 CarService api 时就不需要将 jar 包打包到 apk 中，只需要使用 compileOnly 在编译阶段参与就可以了。下面介绍如何制作一个公共接口 jar，并在系统启动阶段自动加载。</p>
 <h2 id="2-BootJar"><a href="#2-BootJar" class="headerlink" title="2. BootJar"></a>2. BootJar</h2><p>Android 中的 bootjar 其实就是要将某个 jar 包添加到 BOOTCLASSPATH 这个环境变量中。</p>
 <p>具体验证方式：输入 <code> $BOOTCLASSPATH</code> 命令</p>
 <h2 id="3-创建一个-jar-library-仓库"><a href="#3-创建一个-jar-library-仓库" class="headerlink" title="3. 创建一个 jar library 仓库"></a>3. 创建一个 jar library 仓库</h2><h3 id="3-1-源码添加"><a href="#3-1-源码添加" class="headerlink" title="3.1 源码添加"></a>3.1 源码添加</h3><p>在 vendor 目录下创建工程：</p>
@@ -253,111 +270,37 @@
 <p><img src="/image%5C12.png" alt="12"></p>
 <p>结果：可以正常访问</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://example.com/hello-world.html">
+        
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Kevin">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Kevin`Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/hello-world.html" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2024-11-17 14:09:51" itemprop="dateCreated datePublished" datetime="2024-11-17T14:09:51+08:00">2024-11-17</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>367</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/hello-world.html" rel="prev" title="Hello World">
+      <i class="fa fa-chevron-left"></i> Hello World
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -404,6 +347,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#System-BootJar-%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">System BootJar 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">1. 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-BootJar"><span class="nav-number">1.2.</span> <span class="nav-text">2. BootJar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA-jar-library-%E4%BB%93%E5%BA%93"><span class="nav-number">1.3.</span> <span class="nav-text">3. 创建一个 jar library 仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E6%BA%90%E7%A0%81%E6%B7%BB%E5%8A%A0"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 源码添加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E6%B7%BB%E5%8A%A0-PRODUCT-BOOT-JARS%E3%80%81PRODUCT-PACKAGES"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 添加 PRODUCT_BOOT_JARS、PRODUCT_PACKAGES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-%E6%B7%BB%E5%8A%A0%E7%99%BD%E5%90%8D%E5%8D%95"><span class="nav-number">1.3.3.</span> <span class="nav-text">3.3 添加白名单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E6%B5%8B%E8%AF%95%E9%AA%8C%E8%AF%81"><span class="nav-number">1.4.</span> <span class="nav-text">4. 测试验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E9%AA%8C%E8%AF%81"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 环境变量验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E7%B3%BB%E7%BB%9F%E5%BA%94%E7%94%A8%E4%BD%BF%E7%94%A8-boot-jar"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 系统应用使用 boot_jar</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E4%BD%BF%E7%94%A8-boot-jar"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3 三方应用使用 boot_jar</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-1-%E6%96%B9%E6%A1%88%E4%B8%80%EF%BC%9A%E7%BB%99APK%E5%A2%9E%E5%8A%A0%E7%B3%BB%E7%BB%9F%E7%AD%BE%E5%90%8D"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">4.3.1 方案一：给APK增加系统签名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-2-%E6%96%B9%E6%A1%88%E4%BA%8C%EF%BC%9A%E5%B0%86%E8%AF%A5-jar-%E5%8C%85%E9%9C%80%E8%A6%81%E6%9A%B4%E9%9C%B2%E7%BB%99%E4%B8%89%E6%96%B9%E5%BA%94%E7%94%A8%E7%9A%84-API-%E5%8A%A0%E5%85%A5-hiddenapi-%E7%99%BD%E5%90%8D%E5%8D%95"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">4.3.2 方案二：将该 jar 包需要暴露给三方应用的 API 加入 hiddenapi 白名单</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -530,6 +474,25 @@
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'Ov23liXNVY15gigwRk9B',
+      clientSecret: 'c73a218a3b52a36bdbc073dacaa103cc66b43e2a',
+      repo        : 'kevinchen797.github.io',
+      owner       : 'kevinchen797',
+      admin       : ['Kevin'],
+      id          : '2510764fa15c671bc5691cfdf6f4d53a',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
 
 </body>
 </html>
